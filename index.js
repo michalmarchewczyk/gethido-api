@@ -13,6 +13,7 @@ app.use(logger.middleware);
 
 app.use('/user', require('./users/usersRoutes'));
 
+app.use('/tasks', require('./tasks/tasksRoutes'));
 
 
 

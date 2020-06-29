@@ -1,6 +1,6 @@
 const express = require('express');
 const { authorizeRequest } = require('../auth/userTokenAuth');
-const { registerUserMiddleware, loginUserMiddleware, getUserSettingsMiddleware, setUserSettingsMiddleware, getTokenMiddleware, updateUserMiddleware, deleteUserMiddleware } = require('./usersMiddleware');
+const { registerUserMiddleware, loginUserMiddleware, getUserSettingsMiddleware, setUserSettingsMiddleware, getTokenMiddleware, updateUserMiddleware, deleteUserMiddleware, getEmailMiddleware, setEmailMiddleware, deleteEmailMiddleware } = require('./usersMiddleware');
 const router = express.Router();
 
 router.post("/login", loginUserMiddleware);
@@ -23,5 +23,11 @@ router.get('/getToken', authorizeRequest, getTokenMiddleware);
 router.get("/settings", authorizeRequest, getUserSettingsMiddleware);
 
 router.put("/settings", authorizeRequest, setUserSettingsMiddleware);
+
+router.get("/email", authorizeRequest, getEmailMiddleware);
+
+router.put("/email", authorizeRequest, setEmailMiddleware);
+
+router.delete("/email", authorizeRequest, deleteEmailMiddleware);
 
 module.exports = router;

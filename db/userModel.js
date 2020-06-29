@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     settings: {
         darkTheme: {type: Boolean, default: false},
         emails: [String],
+        emailsPassword: String,
     }
 });
 

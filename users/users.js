@@ -3,6 +3,7 @@ const { validationMessages, validateUser } = require('./userValidation');
 const logger = require('../middleware/logger');
 const db = require('../db/db');
 const cryptoRandomString = require('crypto-random-string');
+const {HOST, PORT} = require('../mail/mailConfig');
 
 const getUserId = async () => {
     let id = await db.Setting.findOneAndUpdate({name: "userId"}, {$inc: {'value': 1}});
@@ -32,6 +33,11 @@ const registerUser = async ({username, email, password, repeatPassword}) => {
         username,
         email,
         password: hash,
+        settings: {
+            darkTheme: false,
+            emails: [],
+            emailsPassword: cryptoRandomString({length: 20}),
+        }
     });
 
     try{
@@ -134,7 +140,7 @@ const getUserSettings = async (userId) => {
     const settings = await db.User.find({id: userId});
     if(settings.length !== 1) return false;
     if(settings[0].settings) return settings[0].settings;
-    else return false;
+    return false;
 };
 
 
@@ -152,6 +158,47 @@ const setUserSettings = async (userId, settings) => {
 };
 
 
+const getEmail = async (userId) => {
+    const emails = await db.User.find({id: userId});
+    if(emails.length !== 1) return false;
+    if(emails[0].settings.emails) return emails[0].settings.emails;
+    return false;
+};
+
+
+const setEmail = async (userId) => {
+    let findUser = await db.User.find({id: userId});
+    if(findUser.length !== 1) return false;
+    let findEmails = findUser[0].settings.emails || [];
+
+    let newEmail = `${userId}-${cryptoRandomString({length: 10})}@${HOST}`;
+
+    while(findEmails.includes(newEmail) || findEmails.includes(`!${newEmail}`)){
+        newEmail = `${userId}-${cryptoRandomString({length: 10})}@${HOST}`;
+    }
+
+    let updated;
+    if(findEmails.length < 1){
+        updated = await db.User.findOneAndUpdate({id: userId}, {'settings.emails': [newEmail]}, {new: true});
+    } else {
+        updated = await db.User.findOneAndUpdate({id: userId}, {$push: {'settings.emails': newEmail}}, {new: true});
+    }
+
+    if(!updated) return false;
+
+    return newEmail;
+};
+
+
+const deleteEmail = async (userId, email) => {
+    let deleted = await db.User.findOneAndUpdate({id: userId, 'settings.emails': {$elemMatch: {$eq: email} }}, {$set: {'settings.emails.$': `!${email}`}}, {new: true});
+
+    if(!deleted) return false;
+
+    return deleted.settings.emails;
+};
+
+
 module.exports = {
     registerUser,
     loginUser,
@@ -160,4 +207,7 @@ module.exports = {
     updateUser,
     deleteUser,
     checkUser,
+    getEmail,
+    setEmail,
+    deleteEmail,
 };

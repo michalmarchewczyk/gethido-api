@@ -1,4 +1,4 @@
-const { loginUser, registerUser, getUserSettings, setUserSettings, updateUser, deleteUser, checkUser } = require('./users');
+const { loginUser, registerUser, getUserSettings, setUserSettings, updateUser, deleteUser, checkUser, getEmail, setEmail, deleteEmail } = require('./users');
 const { generateUserToken } = require('../auth/userTokenAuth');
 const { validationMessages } = require('./userValidation');
 const logger = require('../middleware/logger');
@@ -136,6 +136,50 @@ const setUserSettingsMiddleware = async (req, res) => {
 };
 
 
+const getEmailMiddleware = async (req, res) => {
+    const { userId } = req;
+
+    let emails = await getEmail(userId);
+
+    if(!emails) return res.sendStatus(500);
+
+    res.json(emails);
+
+    logger.emit('user', `Get email: ${req.userId}`);
+};
+
+
+const setEmailMiddleware = async (req, res) => {
+    const { userId } = req;
+
+    let email = await setEmail(userId);
+
+    console.log(email);
+
+    if(!email) return res.sendStatus(500);
+
+    res.json(email);
+
+    logger.emit('user', `Set email: ${req.userId}`);
+};
+
+
+const deleteEmailMiddleware = async (req, res) => {
+    const { userId } = req;
+    const { emailAddress } = req.body;
+
+    if(!emailAddress) return res.sendStatus(400);
+
+    let email = await deleteEmail(userId, emailAddress);
+
+    if(!email) return res.sendStatus(400);
+
+    res.json(email);
+
+    logger.emit('user', `Delete email: ${req.userId}`);
+};
+
+
 module.exports = {
     loginUserMiddleware,
     registerUserMiddleware,
@@ -144,4 +188,7 @@ module.exports = {
     getTokenMiddleware,
     updateUserMiddleware,
     deleteUserMiddleware,
+    getEmailMiddleware,
+    setEmailMiddleware,
+    deleteEmailMiddleware,
 };

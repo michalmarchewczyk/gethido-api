@@ -35,7 +35,7 @@ const getTask = async ({userId, id}) => {
     return task;
 };
 
-const createTask = async({userId, name, stage, description}) => {
+const createTask = async({userId, name, stage, description, source}) => {
 
     const taskId = await getTaskId();
 
@@ -53,7 +53,7 @@ const createTask = async({userId, name, stage, description}) => {
         date: Date.now(),
         completed: false,
         tags: [],
-        source: "API",
+        source: source,
     });
 
     try{

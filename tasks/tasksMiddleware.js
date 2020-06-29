@@ -31,10 +31,11 @@ const getTaskMiddleware = async (req, res) => {
 const createTaskMiddleware = async (req, res) => {
     logger.emit('tasks', `Create task by ${req.userId}`);
 
-    const {name, stage, description} = req.body;
+    let {name, stage, description, source} = req.body;
     if(!name || !stage || !description) return res.sendStatus(400);
+    if(!source) source = "API";
 
-    const task = await createTask({userId: req.userId, name, stage, description});
+    const task = await createTask({userId: req.userId, name, stage, description, source});
 
     if(!task) return res.sendStatus(400);
 

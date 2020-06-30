@@ -30,6 +30,10 @@ logger.on('tasks', (msg) => {
     logger.log('Tasks action', msg);
 });
 
+logger.on('email', (msg) => {
+    logger.log('Email action', msg);
+});
+
 logger.on('log', (msg) => {
     logger.log('Info', msg);
 });

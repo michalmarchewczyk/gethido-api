@@ -10,9 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/express": "^4.17.6",
-    "@types/imap": "^0.8.30",
-    "@types/mongoose": "^5.7.27",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "crypto-random-string": "^3.2.0",
@@ -23,5 +20,10 @@
     "moment": "^2.27.0",
     "mongoose": "^5.9.19",
     "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/imap": "^0.8.30",
+    "@types/mongoose": "^5.7.29"
   }
 }

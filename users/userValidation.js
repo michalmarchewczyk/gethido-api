@@ -25,67 +25,67 @@ const validationMessages = {
 };
 
 const validateUsername = (username) => {
-    if(!username) return validationMessages.userReq;
-    if(username.length < 4) return validationMessages.userLen;
-    if(username.length > 40) return validationMessages.userMax;
-    if(!validator.isAlphanumeric(username)) return validationMessages.userVal;
+    if (!username) return validationMessages.userReq;
+    if (username.length < 4) return validationMessages.userLen;
+    if (username.length > 40) return validationMessages.userMax;
+    if (!validator.isAlphanumeric(username)) return validationMessages.userVal;
     return true;
 };
 
 const validateEmail = (email) => {
-    if(!email) return validationMessages.emailReq;
-    if(!validator.isEmail(email)) return validationMessages.emailVal;
+    if (!email) return validationMessages.emailReq;
+    if (!validator.isEmail(email)) return validationMessages.emailVal;
     return true;
 };
 
 const validatePassword = (password, repeatPassword) => {
-    if(!password) return validationMessages.passReq;
-    if(password.length < 8) return validationMessages.passLen;
-    if(password !== repeatPassword) return validationMessages.passMatch;
+    if (!password) return validationMessages.passReq;
+    if (password.length < 8) return validationMessages.passLen;
+    if (password !== repeatPassword) return validationMessages.passMatch;
     return true;
 };
 
 const validateUser = async ({username, email, password, repeatPassword}, ignoreMissing = false) => {
-
+    
     const validationErrors = [];
-
+    
     const validUsername = validateUsername(username);
-    if(validUsername !== true && !(ignoreMissing && !username)){
+    if (validUsername !== true && !(ignoreMissing && !username)) {
         validationErrors.push(validUsername);
     }
-
+    
     const validEmail = validateEmail(email);
-    if(validEmail !== true && !(ignoreMissing && !email)){
+    if (validEmail !== true && !(ignoreMissing && !email)) {
         validationErrors.push(validEmail);
     }
-
+    
     const validPassword = validatePassword(password, repeatPassword);
-    if(validPassword !== true && !(ignoreMissing && !password)){
+    if (validPassword !== true && !(ignoreMissing && !password)) {
         validationErrors.push(validPassword);
     }
-
-    if(validationErrors.length !== 0) return validationErrors;
-
+    
+    if (validationErrors.length !== 0) return validationErrors;
+    
     let findUsername = await db.User.find({username});
-
+    
     let findEmail = await db.User.find({email});
-
-    if(findUsername.length !== 0){
+    
+    if (findUsername.length !== 0) {
         validationErrors.push(validationMessages.userEx);
     }
-
-    if (findEmail.length !== 0){
+    
+    if (findEmail.length !== 0) {
         validationErrors.push(validationMessages.emailEx);
     }
-
-    if(validationErrors.length === 0){
+    
+    if (validationErrors.length === 0) {
         return true
-    }else{
+    } else {
         return validationErrors;
     }
 };
 
 module.exports = {
-  validationMessages,
-  validateUser,
+    validationMessages,
+    validateUser,
 };

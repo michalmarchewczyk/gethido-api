@@ -26,8 +26,6 @@ router.get('/tags/:tag', getTagTasksMiddleware);
 router.delete('/:id', deleteTaskMiddleware);
 
 
-
-
 router.all('/*', (req, res) => {
     res.sendStatus(400);
 });

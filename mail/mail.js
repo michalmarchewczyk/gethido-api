@@ -1,9 +1,9 @@
 const Imap = require('imap');
 const simpleParser = require('mailparser').simpleParser;
-
 const {HOST, PORT} = require('./mailConfig');
 
-const getEmailList = ({username, password, lastEmail}) => new Promise ((resolve, reject) => {
+
+const getEmailList = ({username, password, lastEmail}) => new Promise((resolve, reject) => {
     if (!lastEmail) lastEmail = 1;
     let messages = [];
     const imap = new Imap({
@@ -32,7 +32,7 @@ const getEmailList = ({username, password, lastEmail}) => new Promise ((resolve,
                     message.title = parsed.subject;
                     message.date = parsed.date;
                     message.email = `${username}@${HOST}`;
-                    if(endNo && seqno === endNo){
+                    if (endNo && seqno === endNo) {
                         resolve(messages);
                     }
                 });
@@ -49,13 +49,13 @@ const getEmailList = ({username, password, lastEmail}) => new Promise ((resolve,
             fetchEmails.once('end', () => {
                 imap.end();
                 endNo = lastNo;
-                if(endNo === 0){
+                if (endNo === 0) {
                     resolve([]);
                 }
             })
         });
     });
-
+    
     imap.once('error', (err) => {
         reject(err);
     });
@@ -66,8 +66,7 @@ const getEmailList = ({username, password, lastEmail}) => new Promise ((resolve,
 });
 
 
-
-const getEmail = ({username, password, emailUID}) => new Promise ((resolve, reject) => {
+const getEmail = ({username, password, emailUID}) => new Promise((resolve, reject) => {
     if (!emailUID) reject();
     let messages = [];
     const imap = new Imap({
@@ -92,9 +91,9 @@ const getEmail = ({username, password, emailUID}) => new Promise ((resolve, reje
                     message.to = parsed.to.text;
                     message.title = parsed.subject;
                     message.date = parsed.date;
-                    if(parsed.html){
+                    if (parsed.html) {
                         message.html = parsed.html;
-                    }else{
+                    } else {
                         message.html = parsed.textAsHtml;
                     }
                     message.email = `${username}@${HOST}`;
@@ -115,7 +114,7 @@ const getEmail = ({username, password, emailUID}) => new Promise ((resolve, reje
             })
         });
     });
-
+    
     imap.once('error', (err) => {
         reject(err);
     });

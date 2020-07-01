@@ -1,6 +1,6 @@
 const express = require('express');
-const { authorizeRequest } = require('../auth/userTokenAuth');
-const { registerUserMiddleware, loginUserMiddleware, getUserSettingsMiddleware, setUserSettingsMiddleware, getTokenMiddleware, updateUserMiddleware, deleteUserMiddleware, getEmailMiddleware, setEmailMiddleware, deleteEmailMiddleware } = require('./usersMiddleware');
+const {authorizeRequest} = require('../auth/userTokenAuth');
+const {registerUserMiddleware, loginUserMiddleware, getUserSettingsMiddleware, setUserSettingsMiddleware, getTokenMiddleware, updateUserMiddleware, deleteUserMiddleware, getEmailMiddleware, setEmailMiddleware, deleteEmailMiddleware} = require('./usersMiddleware');
 const router = express.Router();
 
 router.post("/login", loginUserMiddleware);

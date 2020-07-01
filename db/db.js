@@ -10,7 +10,6 @@ mongoose.connect(DB_URL, DB_PARAMS).then((res) => {
 });
 
 
-
 const User = require('../db/userModel');
 const Task = require('../db/taskModel');
 const Setting = require('../db/settingModel');

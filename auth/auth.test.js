@@ -1,4 +1,6 @@
 const {generateUserToken, verifyToken} = require('./userTokenAuth');
+const logger = require('../middleware/logger');
+logger.emit('log', 'Testing auth');
 
 test('Generating token with given user data', async () => {
     let data = {

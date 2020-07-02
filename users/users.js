@@ -203,6 +203,7 @@ const deleteEmail = async (userId, email) => {
 
 
 module.exports = {
+    getUserId,
     registerUser,
     loginUser,
     getUserSettings,

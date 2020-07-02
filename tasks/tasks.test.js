@@ -1,6 +1,8 @@
 const {getTasks, getTask, createTask, moveTask, updateTask, tagTask, getTagTasks, deleteTask} = require('./tasks');
 const stages = require('../tasks/tasksStages');
 const db = require('../db/db');
+const logger = require('../middleware/logger');
+logger.emit('log', 'Testing tasks');
 
 const TEST_USER_ID = 21;
 

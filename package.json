@@ -27,6 +27,7 @@
     "@types/imap": "^0.8.30",
     "@types/jest": "^26.0.3",
     "@types/mongoose": "^5.7.29",
-    "jest": "^26.1.0"
+    "jest": "^26.1.0",
+    "node-fetch": "^2.6.0"
   }
 }

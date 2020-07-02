@@ -23,14 +23,12 @@ test('Logger basic types', async() => {
     let logFiles = await fs.readdir('./logs/');
     let lastFile = logFiles[logFiles.length-1];
     
-    logger.emit('log', 'Some info');
-    
-
-    
+    logger.emit('log', 'Testing logger');
     
     let file = await fs.readFile(`./logs/${lastFile}`);
     let logs = file.toString().split('\n');
-    expect(logs[2].trim()).toMatch(/Info: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3} \(\+\d{2}.\d{3}s\): Some info/);
+    
+    expect(logs[2].trim()).toMatch(/Info: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3} \(\+\d{2}.\d{3}s\): Testing logger/);
     
     logger.emit('error', 'Some error');
     file = await fs.readFile(`./logs/${lastFile}`);

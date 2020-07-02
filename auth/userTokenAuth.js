@@ -40,4 +40,5 @@ const generateUserToken = async (userData) => {
 module.exports = {
     generateUserToken,
     authorizeRequest,
+    verifyToken,
 };

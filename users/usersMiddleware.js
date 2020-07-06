@@ -109,9 +109,18 @@ const checkTokenMiddleware = async (req, res) => {
     if(!user) return res.sendStatus(401);
     
     res.json({
-        msg: "You are logged in",
+        msg: 'You are logged in',
         user: user,
     });
+};
+
+
+const logoutUserMiddleware = async (req, res) => {
+    logger.emit('user', `Logout user: ${req.userId}`);
+    
+    res.clearCookie('token');
+    
+    res.json({msg: 'Logged out'});
 };
 
 
@@ -209,6 +218,7 @@ module.exports = {
     getUserSettingsMiddleware,
     setUserSettingsMiddleware,
     checkTokenMiddleware,
+    logoutUserMiddleware,
     getTokenMiddleware,
     updateUserMiddleware,
     deleteUserMiddleware,

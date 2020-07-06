@@ -39,6 +39,7 @@ const authorizeRequest = async (req, res, next) => {
     } else {
         logger.emit('user', `Invalid token`);
         res.set('WWW-Authenticate', 'Cookie');
+        res.clearCookie('token');
         res.sendStatus(401);
     }
 };

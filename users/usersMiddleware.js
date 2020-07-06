@@ -1,4 +1,4 @@
-const {loginUser, registerUser, getUserSettings, setUserSettings, updateUser, deleteUser, checkUser, getEmail, setEmail, deleteEmail} = require('./users');
+const {loginUser, registerUser, getUserSettings, setUserSettings, updateUser, deleteUser, getUser, checkUser, getEmail, setEmail, deleteEmail} = require('./users');
 const {generateUserToken} = require('../auth/userTokenAuth');
 const {validationMessages} = require('./userValidation');
 const logger = require('../middleware/logger');
@@ -28,6 +28,7 @@ const registerUserMiddleware = async (req, res) => {
 
 const loginUserMiddleware = async (req, res) => {
     logger.emit('user', `Login attempt: ${req.body.username}`);
+    console.log(req.cookies);
     
     const {username, password} = req.body;
     
@@ -41,16 +42,21 @@ const loginUserMiddleware = async (req, res) => {
     
     let token = await generateUserToken({userId: response.userId});
     
+    // res.cookie('token', token, {httpOnly: true, secure: true, sameSite: 'strict'});
+    res.cookie('token', token, {httpOnly: true});
+    
     res.json({
         msg: response.msg,
-        userId: response.userId,
-        token: token,
+        user: {
+            id: response.userId,
+            username: username,
+        }
     });
 };
 
 
 const updateUserMiddleware = async (req, res) => {
-    logger.emit(`user`, `Update user data: ${req.userId}`);
+    logger.emit('user', `Update user data: ${req.userId}`);
     
     const {oldPassword, newUsername, newEmail, newPassword, newRepeatPassword} = req.body;
     
@@ -81,7 +87,7 @@ const updateUserMiddleware = async (req, res) => {
 
 
 const deleteUserMiddleware = async (req, res) => {
-    logger.emit(`user`, `Delete user: ${req.userId}`);
+    logger.emit('user', `Delete user: ${req.userId}`);
     
     const {password} = req.body;
     
@@ -96,8 +102,21 @@ const deleteUserMiddleware = async (req, res) => {
 };
 
 
+const checkTokenMiddleware = async (req, res) => {
+    logger.emit('user', `Check token: ${req.userId}`);
+    
+    let user = await getUser({userId: req.userId});
+    if(!user) return res.sendStatus(401);
+    
+    res.json({
+        msg: "You are logged in",
+        user: user,
+    });
+};
+
+
 const getTokenMiddleware = async (req, res) => {
-    logger.emit(`user`, `Get new token: ${req.userId}`);
+    logger.emit('user', `Get new token: ${req.userId}`);
     
     let userEx = await checkUser({userId: req.userId});
     if (!userEx) return res.sendStatus(400);
@@ -189,6 +208,7 @@ module.exports = {
     registerUserMiddleware,
     getUserSettingsMiddleware,
     setUserSettingsMiddleware,
+    checkTokenMiddleware,
     getTokenMiddleware,
     updateUserMiddleware,
     deleteUserMiddleware,

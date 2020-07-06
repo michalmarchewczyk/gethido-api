@@ -126,6 +126,17 @@ const deleteUser = async ({userId, password}) => {
 };
 
 
+const getUser = async ({userId}) => {
+    const user = await db.User.findOne({id: userId});
+    if(!user) return false;
+    return {
+        id: userId,
+        username: user.username,
+        email: user.email,
+    }
+};
+
+
 const checkUser = async ({userId}) => {
     const findUser = await db.User.find({id: userId});
     if (findUser.length !== 1) {
@@ -210,6 +221,7 @@ module.exports = {
     setUserSettings,
     updateUser,
     deleteUser,
+    getUser,
     checkUser,
     getEmail,
     setEmail,

@@ -10,25 +10,35 @@ const verifyToken = (token) => {
     }
 };
 
-const authorizeRequest = (req, res, next) => {
-    const bearerHeader = req.headers['authorization'];
-    if (!bearerHeader) {
-        logger.emit('user', `Authorization error`);
-        res.set('WWW-Authenticate', 'Bearer');
-        res.sendStatus(401);
-        return;
+const authorizeRequest = async (req, res, next) => {
+    const cookieToken = req.cookies.token;
+    
+    let token;
+    
+    if(cookieToken){
+        token = cookieToken;
+    }else{
+        const bearerHeader = req.headers['authorization'];
+        if (!bearerHeader) {
+            logger.emit('user', `Authorization error`);
+            res.set('WWW-Authenticate', 'Bearer');
+            res.sendStatus(401);
+            return;
+        }
+        token = bearerHeader.split(' ')[1];
     }
-    const token = bearerHeader.split(' ')[1];
     
     const userData = verifyToken(token);
     
     if (userData) {
         logger.emit('user', `Token verified: ${userData.userId}`);
         req.userId = userData.userId;
+        let newToken = await generateUserToken({userId: userData.userId});
+        res.cookie('token', newToken, {httpOnly: true});
         next();
     } else {
         logger.emit('user', `Invalid token`);
-        res.set('WWW-Authenticate', 'Bearer');
+        res.set('WWW-Authenticate', 'Cookie');
         res.sendStatus(401);
     }
 };

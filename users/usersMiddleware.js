@@ -150,7 +150,7 @@ const getUserSettingsMiddleware = async (req, res) => {
     
     if (!settings) return res.sendStatus(400);
     
-    res.json({darkTheme: settings.darkTheme});
+    res.json({darkTheme: settings.darkTheme, largeFont: settings.largeFont});
     
     logger.emit('user', `Get settings: ${req.userId}`);
 };
@@ -164,7 +164,7 @@ const setUserSettingsMiddleware = async (req, res) => {
     
     if (!newSettings) return res.sendStatus(500);
     
-    res.json({darkTheme: newSettings.darkTheme});
+    res.json({darkTheme: newSettings.darkTheme, largeFont: newSettings.largeFont});
     
     logger.emit('user', `Set settings: ${req.userId}`);
 };

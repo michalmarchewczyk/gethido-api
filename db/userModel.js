@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     settings: {
         darkTheme: {type: Boolean, default: false},
+        largeFont: {type: Boolean, default: false},
         emails: [String],
         emailsPassword: String,
     }

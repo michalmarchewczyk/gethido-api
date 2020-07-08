@@ -13,7 +13,7 @@ router.delete('/delete', authorizeRequest, deleteUserMiddleware);
 
 router.get('/checkToken', authorizeRequest, checkTokenMiddleware);
 
-router.put('/logout', authorizeRequest, logoutUserMiddleware)
+router.put('/logout', authorizeRequest, logoutUserMiddleware);
 
 // router.get('/getToken', authorizeRequest, getTokenMiddleware);
 

@@ -66,7 +66,7 @@ const updateUserMiddleware = async (req, res) => {
         response = await updateUser({userId: req.userId, oldPassword, updateData: {username: newUsername}});
     } else if (newEmail) {
         response = await updateUser({userId: req.userId, oldPassword, updateData: {email: newEmail}});
-    } else if (newPassword && newRepeatPassword && newPassword === newRepeatPassword) {
+    } else if (newPassword && newRepeatPassword) {
         response = await updateUser({
             userId: req.userId,
             oldPassword,
@@ -79,7 +79,10 @@ const updateUserMiddleware = async (req, res) => {
     
     if (response[0] === validationMessages.userEx || response[0] === validationMessages.emailEx) res.status(409);
     else if (response[0] !== validationMessages.updateSuc) res.status(400);
-    else res.status(200);
+    else {
+        res.clearCookie('token');
+        res.status(200)
+    }
     
     res.json(response);
 };

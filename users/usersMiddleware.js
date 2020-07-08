@@ -28,7 +28,6 @@ const registerUserMiddleware = async (req, res) => {
 
 const loginUserMiddleware = async (req, res) => {
     logger.emit('user', `Login attempt: ${req.body.username}`);
-    console.log(req.cookies);
     
     const {username, password} = req.body;
     
@@ -148,7 +147,7 @@ const getUserSettingsMiddleware = async (req, res) => {
     
     if (!settings) return res.sendStatus(400);
     
-    res.json(settings);
+    res.json({darkTheme: settings.darkTheme});
     
     logger.emit('user', `Get settings: ${req.userId}`);
 };
@@ -162,7 +161,7 @@ const setUserSettingsMiddleware = async (req, res) => {
     
     if (!newSettings) return res.sendStatus(500);
     
-    res.json(newSettings);
+    res.json({darkTheme: newSettings.darkTheme});
     
     logger.emit('user', `Set settings: ${req.userId}`);
 };

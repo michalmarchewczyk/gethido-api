@@ -177,7 +177,7 @@ const getEmailMiddleware = async (req, res) => {
     
     if (!emails) return res.sendStatus(500);
     
-    res.json(emails);
+    res.json(emails.filter(e => !e.startsWith('!')));
     
     logger.emit('user', `Get email: ${req.userId}`);
 };
@@ -208,7 +208,7 @@ const deleteEmailMiddleware = async (req, res) => {
     
     if (!email) return res.sendStatus(400);
     
-    res.json(email);
+    res.json(email.filter(e => !e.startsWith('!')));
     
     logger.emit('user', `Delete email: ${req.userId}`);
 };

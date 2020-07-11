@@ -60,7 +60,7 @@ const updateTaskMiddleware = async (req, res) => {
     const id = parseInt(req.params.id);
     const {name, description, completed} = req.body;
     if (!id) return res.sendStatus(400);
-    if (!name && !description && !completed) return res.sendStatus(400);
+    if (!name && !description && (typeof completed === 'undefined')) return res.sendStatus(400);
     
     logger.emit('tasks', `Update task id: ${id} by ${req.userId}`);
     

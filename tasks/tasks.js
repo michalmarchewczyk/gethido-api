@@ -115,7 +115,7 @@ const updateTask = async ({userId, id, name, description, completed}) => {
     const updateData = {};
     if (name) updateData.name = name;
     if (description) updateData.description = description;
-    if (completed) updateData.completed = completed;
+    if (!(typeof completed === 'undefined')) updateData.completed = completed;
     
     try {
         const task = await db.Task.findOneAndUpdate({userId: userId, id: id}, {...updateData}, {new: true});

@@ -108,7 +108,7 @@ const checkTokenMiddleware = async (req, res) => {
     logger.emit('user', `Check token: ${req.userId}`);
     
     let user = await getUser({userId: req.userId});
-    if(!user) return res.sendStatus(401);
+    if (!user) return res.sendStatus(401);
     
     res.json({
         msg: 'You are logged in',
@@ -150,7 +150,13 @@ const getUserSettingsMiddleware = async (req, res) => {
     
     if (!settings) return res.sendStatus(400);
     
-    res.json({darkTheme: settings.darkTheme, largeFont: settings.largeFont});
+    res.json({
+        darkTheme: settings.darkTheme,
+        largeFont: settings.largeFont,
+        autoCompleted: settings.autoCompleted,
+        autoCalendar: settings.autoCalendar,
+        allOptions: settings.allOptions,
+    });
     
     logger.emit('user', `Get settings: ${req.userId}`);
 };
@@ -164,7 +170,13 @@ const setUserSettingsMiddleware = async (req, res) => {
     
     if (!newSettings) return res.sendStatus(500);
     
-    res.json({darkTheme: newSettings.darkTheme, largeFont: newSettings.largeFont});
+    res.json({
+        darkTheme: newSettings.darkTheme,
+        largeFont: newSettings.largeFont,
+        autoCompleted: newSettings.autoCompleted,
+        autoCalendar: newSettings.autoCalendar,
+        allOptions: newSettings.allOptions,
+    });
     
     logger.emit('user', `Set settings: ${req.userId}`);
 };

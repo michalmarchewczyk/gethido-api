@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema({
     settings: {
         darkTheme: {type: Boolean, default: false},
         largeFont: {type: Boolean, default: false},
+        autoCompleted: {type: Boolean, default: false},
+        autoCalendar: {type: Boolean, default: false},
+        allOptions: {type: Boolean, default: false},
         emails: [String],
         emailsPassword: String,
     }

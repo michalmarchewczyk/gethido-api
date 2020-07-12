@@ -36,6 +36,9 @@ const registerUser = async ({username, email, password, repeatPassword}) => {
         settings: {
             darkTheme: false,
             largeFont: false,
+            autoCompleted: false,
+            autoCalendar: false,
+            allOptions: false,
             emails: [],
             emailsPassword: cryptoRandomString({length: 20}),
         }

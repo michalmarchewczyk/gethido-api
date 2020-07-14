@@ -162,6 +162,17 @@ const getTagTasks = async ({userId, tag}) => {
     return tasks;
 };
 
+const searchTasks = async ({userId, s}) => {
+    const tasks = await db.Task.find({$text: {$search: s}});
+    
+    if(!tasks) {
+        logger.emit('tasks', `Error searching tasks`);
+        return false;
+    }
+    
+    return tasks;
+};
+
 const deleteTask = async ({userId, id}) => {
     
     try {
@@ -248,5 +259,6 @@ module.exports = {
     updateTask,
     tagTask,
     getTagTasks,
+    searchTasks,
     deleteTask,
 };

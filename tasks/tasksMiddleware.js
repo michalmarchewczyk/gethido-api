@@ -1,4 +1,4 @@
-const {getTasks, getTask, createTask, moveTask, updateTask, tagTask, getTagTasks, deleteTask} = require('./tasks');
+const {getTasks, getTask, createTask, moveTask, updateTask, tagTask, getTagTasks, deleteTask, searchTasks} = require('./tasks');
 const logger = require('../middleware/logger');
 
 
@@ -100,6 +100,18 @@ const getTagTasksMiddleware = async (req, res) => {
     res.json(tasks);
 };
 
+const searchTasksMiddleware = async (req, res) => {
+    const s = req.params.s;
+    
+    logger.emit('tasks', `Search tasks "${s}" by ${req.userId}`);
+    
+    const tasks = await searchTasks({userId: req.userId, s});
+    
+    if(!tasks) return res.sendStatus(400);
+    
+    res.json(tasks);
+};
+
 const deleteTaskMiddleware = async (req, res) => {
     const id = parseInt(req.params.id);
     
@@ -120,5 +132,6 @@ module.exports = {
     updateTaskMiddleware,
     deleteTaskMiddleware,
     tagTaskMiddleware,
-    getTagTasksMiddleware
+    getTagTasksMiddleware,
+    searchTasksMiddleware,
 };

@@ -1,7 +1,7 @@
 const express = require('express');
 const {authorizeRequest} = require('../auth/userTokenAuth');
 const stages = require('./tasksStages');
-const {getTasksMiddleware, getTaskMiddleware, createTaskMiddleware, moveTaskMiddleware, deleteTaskMiddleware, updateTaskMiddleware, tagTaskMiddleware, getTagTasksMiddleware} = require('../tasks/tasksMiddleware');
+const {getTasksMiddleware, getTaskMiddleware, createTaskMiddleware, moveTaskMiddleware, deleteTaskMiddleware, updateTaskMiddleware, tagTaskMiddleware, getTagTasksMiddleware, searchTasksMiddleware} = require('../tasks/tasksMiddleware');
 const router = express.Router();
 const logger = require('../middleware/logger');
 
@@ -10,6 +10,8 @@ router.use(authorizeRequest);
 
 
 router.get(Object.values(stages).map(s => `/${s}`), getTasksMiddleware);
+
+router.get('/search/:s', searchTasksMiddleware);
 
 router.get('/:id', getTaskMiddleware);
 

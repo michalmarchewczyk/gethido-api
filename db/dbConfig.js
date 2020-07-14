@@ -5,7 +5,7 @@ const DB_NAME = "gethido";
 
 const DB_URL = url.resolve(SERVER_URL, DB_NAME);
 
-const DB_PARAMS = {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false};
+const DB_PARAMS = {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true};
 
 module.exports = {
     DB_URL,

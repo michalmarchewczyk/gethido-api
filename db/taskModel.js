@@ -11,6 +11,7 @@ const taskSchema = new mongoose.Schema({
     name: String,
     description: String,
     date: Date,
+    calDate: {type: Date, default: null},
     completed: {type: Boolean, default: false},
     tags: [String],
     source: String,

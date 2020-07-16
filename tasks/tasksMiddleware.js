@@ -58,13 +58,13 @@ const moveTaskMiddleware = async (req, res) => {
 
 const updateTaskMiddleware = async (req, res) => {
     const id = parseInt(req.params.id);
-    const {name, description, completed} = req.body;
+    const {name, description, completed, calDate} = req.body;
     if (!id) return res.sendStatus(400);
-    if (!name && !description && (typeof completed === 'undefined')) return res.sendStatus(400);
+    if (!name && !description && (typeof completed === 'undefined') && !calDate) return res.sendStatus(400);
     
     logger.emit('tasks', `Update task id: ${id} by ${req.userId}`);
     
-    const task = await updateTask({userId: req.userId, id, name, description, completed});
+    const task = await updateTask({userId: req.userId, id, name, description, completed, calDate});
     
     if (!task) return res.sendStatus(400);
     

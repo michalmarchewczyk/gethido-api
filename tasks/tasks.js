@@ -110,12 +110,13 @@ const moveTask = async ({userId, id, stage}) => {
     }
 };
 
-const updateTask = async ({userId, id, name, description, completed}) => {
+const updateTask = async ({userId, id, name, description, completed, calDate}) => {
     
     const updateData = {};
     if (name) updateData.name = name;
     if (description) updateData.description = description;
-    if (!(typeof completed === 'undefined')) updateData.completed = completed;
+    if (typeof completed !== 'undefined') updateData.completed = completed;
+    if (calDate) updateData.calDate = calDate;
     
     try {
         const task = await db.Task.findOneAndUpdate({userId: userId, id: id}, {...updateData}, {new: true});

@@ -156,6 +156,7 @@ const getUserSettingsMiddleware = async (req, res) => {
         autoCompleted: settings.autoCompleted,
         autoCalendar: settings.autoCalendar,
         allOptions: settings.allOptions,
+        taskLink: settings.taskLink,
     });
     
     logger.emit('user', `Get settings: ${req.userId}`);
@@ -176,6 +177,7 @@ const setUserSettingsMiddleware = async (req, res) => {
         autoCompleted: newSettings.autoCompleted,
         autoCalendar: newSettings.autoCalendar,
         allOptions: newSettings.allOptions,
+        taskLink: settings.taskLink,
     });
     
     logger.emit('user', `Set settings: ${req.userId}`);

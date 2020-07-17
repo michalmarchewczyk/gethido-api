@@ -39,6 +39,7 @@ const registerUser = async ({username, email, password, repeatPassword}) => {
             autoCompleted: false,
             autoCalendar: false,
             allOptions: false,
+            taskLink: false,
             emails: [],
             emailsPassword: cryptoRandomString({length: 20}),
         }

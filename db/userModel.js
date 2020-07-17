@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
         autoCompleted: {type: Boolean, default: false},
         autoCalendar: {type: Boolean, default: false},
         allOptions: {type: Boolean, default: false},
+        taskLink: {type: Boolean, default: false},
         emails: [String],
         emailsPassword: String,
     }

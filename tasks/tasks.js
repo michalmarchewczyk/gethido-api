@@ -2,9 +2,10 @@ const stages = require('./tasksStages');
 const logger = require('../middleware/logger');
 const db = require('../db/db');
 const {getEmailList, getEmail} = require('../mail/mail');
+const moment = require('moment');
 
 const getTaskId = async () => {
-    const id = await db.Setting.findOneAndUpdate({name: "taskId"}, {$inc: {'value': 1}});
+    const id = await db.Setting.findOneAndUpdate({name: 'taskId'}, {$inc: {'value': 1}});
     if (!id) return false;
     return id.value;
 };
@@ -17,6 +18,12 @@ const getTasks = async ({userId, stage}) => {
     
     if (stage === stages.inbox) {
         let tasksEmail = await createTasksFromEmails({userId});
+    }
+    
+    const user = await db.User.findOne({id: userId}, 'settings.autoCalendar');
+    
+    if (user.settings.autoCalendar && (stage === stages.inbox || stage === stages.calendar)) {
+        let tasksCalendar = await moveTasksFromCalendar({userId});
     }
     
     const tasks = await db.Task.find({userId: userId, stage: stage});
@@ -153,7 +160,7 @@ const tagTask = async ({userId, id, tags}) => {
 };
 
 const getTagTasks = async ({userId, tag}) => {
-    const tasks = await db.Task.find({userId: userId, tags: {$regex: new RegExp("^" + tag, "i")}});
+    const tasks = await db.Task.find({userId: userId, tags: {$regex: new RegExp('^' + tag, 'i')}});
     
     if (!tasks) {
         logger.emit('tasks', `Error fetching tasks with tag ${tag}`);
@@ -166,7 +173,7 @@ const getTagTasks = async ({userId, tag}) => {
 const searchTasks = async ({userId, s}) => {
     const tasks = await db.Task.find({$text: {$search: s}});
     
-    if(!tasks) {
+    if (!tasks) {
         logger.emit('tasks', `Error searching tasks`);
         return false;
     }
@@ -249,6 +256,19 @@ const getTaskEmail = async ({userId, emailAddress, emailUID}) => {
     if (!email[0]) return false;
     
     return email[0];
+};
+
+
+const moveTasksFromCalendar = async ({userId}) => {
+    logger.emit(`tasks`, `Move tasks from calendar by ${userId}`);
+    
+    const tasks = await db.Task.updateMany({userId: userId, stage: stages.calendar, calDate: {$lte: moment().endOf('day').toDate()}}, {stage: stages.inbox});
+    
+    if (!tasks) return false;
+    
+    logger.emit(`tasks`, `Moved ${tasks.n} tasks from calendar by ${userId}`);
+    
+    return tasks;
 };
 
 

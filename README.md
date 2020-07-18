@@ -1,5 +1,9 @@
 # GeThiDo-API
 
+![GitHub package.json version](https://img.shields.io/github/package-json/v/michalmarchewczyk/gethido-api)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/michalmarchewczyk/gethido-api)
+![GitHub last commit](https://img.shields.io/github/last-commit/michalmarchewczyk/gethido-api)
+
 GeThiDo-API is a RESTful API for creating tools based on "Getting Things Done" time management method. 
 
 ## Technologies

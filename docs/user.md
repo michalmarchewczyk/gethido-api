@@ -4,6 +4,23 @@ This part of API is responsible for registering, authenticating and authorizing 
 
 Endpoints have the form: **https://[URL]/user/[endpoint]**
 
+### Contents
+  * [Token authorization](#token-authorization)
+  * [Error types](#error-types)
+    + [Registration errors](#registration-errors)
+    + [Login errors](#login-errors)
+    + [Other errors](#other-errors)
+  * [Register user](#register-user)
+  * [Login user](#login-user)
+  * [Check user](#check-user)
+  * [Logout user](#logout-user)
+  * [Update user data](#update-user-data)
+  * [Delete user](#delete-user)
+  * [Get settings](#get-settings)
+  * [Change settings](#change-settings)
+  * [Get emails](#get-emails)
+  * [Generate email](#generate-email)
+  * [Delete email](#delete-email)
 
 ## Token authorization
 

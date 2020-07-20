@@ -148,7 +148,7 @@ const getUserSettingsMiddleware = async (req, res) => {
     
     const settings = await getUserSettings(userId);
     
-    if (!settings) return res.sendStatus(400);
+    if (!settings) return res.sendStatus(500);
     
     res.json({
         darkTheme: settings.darkTheme,
@@ -177,7 +177,7 @@ const setUserSettingsMiddleware = async (req, res) => {
         autoCompleted: newSettings.autoCompleted,
         autoCalendar: newSettings.autoCalendar,
         allOptions: newSettings.allOptions,
-        taskLink: settings.taskLink,
+        taskLink: newSettings.taskLink,
     });
     
     logger.emit('user', `Set settings: ${req.userId}`);

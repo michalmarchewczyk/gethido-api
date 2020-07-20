@@ -4,6 +4,7 @@ This part of API is responsible for registering, authenticating and authorizing 
 
 Endpoints have the form: **https://[URL]/user/[endpoint]**
 
+
 ### Contents
   * [Token authorization](#token-authorization)
   * [Error types](#error-types)
@@ -21,7 +22,8 @@ Endpoints have the form: **https://[URL]/user/[endpoint]**
   * [Get emails](#get-emails)
   * [Generate email](#generate-email)
   * [Delete email](#delete-email)
-
+  
+  
 ## Token authorization
 
 Most user action require user to authenticate with JWT token.
@@ -74,7 +76,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```POST /user/register```
+    ```http
+    POST /user/register
+    ```
     
 - **Body**
     ```
@@ -138,7 +142,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```POST /user/login```
+    ```http
+    POST /user/login
+    ```
     
 - **Body**
     ```
@@ -187,7 +193,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```GET /user/checkToken```
+    ```http
+    GET /user/checkToken
+    ```
     
 - **Requires token authorization**
 
@@ -213,7 +221,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```PUT /user/logout```
+    ```http
+    PUT /user/logout
+    ```
     
 - **Requires token authorization**
 
@@ -234,7 +244,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```PUT /user/update```
+    ```http
+    PUT /user/update
+    ```
     
 - **Requires token authorization**
     
@@ -295,7 +307,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```DELETE /user/delete```
+    ```http
+    DELETE /user/delete
+    ```
     
 - **Requires token authorization**
 
@@ -316,7 +330,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```GET /user/settings```
+    ```http
+    GET /user/settings
+    ```
     
 - **Requires token authorization**
 
@@ -341,7 +357,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```PUT /user/settings```
+    ```http
+    PUT /user/settings
+    ```
     
 - **Requires token authorization**
 
@@ -371,7 +389,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```GET /user/email```
+    ```http
+    GET /user/email
+    ```
     
 - **Requires token authorization**
 
@@ -393,7 +413,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```PUT /user/email```
+    ```http
+    PUT /user/email
+    ```
     
 - **Requires token authorization**
 
@@ -410,7 +432,9 @@ Attempt to authorize with invalid or expired token will result in response with 
 
 - **URL**
 
-    ```DELETE /user/email```
+    ```http
+    DELETE /user/email
+    ```
     
 - **Requires token authorization**
 

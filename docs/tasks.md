@@ -5,6 +5,19 @@ This part of API is responsible for CRUD tasks operations.
 Endpoints have the form: **https://[URL]/tasks/[endpoint]**
 
 
+### Contents
+  * [Token authorization](#token-authorization)
+  * [Get tasks](#get-tasks)
+  * [Search tasks](#search-tasks)
+  * [Get task](#get-task)
+  * [Create task](#create-task)
+  * [Update task](#update-task)
+  * [Move task to stage](#move-task-to-stage)
+  * [Delete task](#delete-task)
+  * [Change task tags](#change-task-tags)
+  * [Get tasks with given tag](#get-tasks-with-given-tag)
+  
+  
 ## Token authorization
 
 All tasks actions require user to authenticate with JWT token.

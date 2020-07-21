@@ -215,13 +215,18 @@ const createTasksFromEmails = async ({userId}) => {
         
         const username = email.split('@')[0];
         
-        let messages = await getEmailList({
-            username: username,
-            password: emailsPassword,
-            lastEmail: lastUid.emailUID + 1
-        });
-        if (!messages) messages = [];
-        return messages;
+        try {
+            let messages = await getEmailList({
+                username: username,
+                password: emailsPassword,
+                lastEmail: lastUid.emailUID + 1
+            });
+            if (!messages) messages = [];
+            return messages;
+        }catch (err) {
+            logger.emit('error', `Email error by ${userId}: ${err}`);
+            return [];
+        }
     }));
     
     emails = emails.flat();

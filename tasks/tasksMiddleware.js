@@ -39,6 +39,8 @@ const createTaskMiddleware = async (req, res) => {
     
     if (!task) return res.sendStatus(400);
     
+    res.status(201);
+    
     res.json(task);
 };
 

@@ -171,7 +171,7 @@ const getTagTasks = async ({userId, tag}) => {
 };
 
 const searchTasks = async ({userId, s}) => {
-    const tasks = await db.Task.find({$text: {$search: s}});
+    const tasks = await db.Task.find({userId: userId, $text: {$search: s}});
     
     if (!tasks) {
         logger.emit('tasks', `Error searching tasks`);

@@ -52,6 +52,25 @@ For tasks-related actions endpoint have the form: **https://[URL]/tasks/[endpoin
 
 Docs for tasks-related actions: [docs/tasks.md](docs/tasks.md)
 
+## Testing 
+GeThiDo-API uses Jest testing framework.
+
+### Setup tests
+1. (Optional) Setup temporary database for testing purposes, and change config in [db/dbConfig.js](db/dbConfig.js)
+
+1. Create user for testing purposes.
+
+1. Save this user's id in [tasks/tasks.test.js](tasks/tasks.test.js)
+    ```javascript
+    const TEST_USER_ID = [userId];
+    ```
+   
+### Run tests
+Run tests using npm  
+``` 
+npm test
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

@@ -14,21 +14,21 @@
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "crypto-random-string": "^3.2.0",
+    "crypto-random-string": "^3.3.1",
     "express": "^4.17.1",
     "imap": "^0.8.19",
     "jsonwebtoken": "^8.5.1",
-    "mailparser": "^2.7.7",
-    "moment": "^2.27.0",
-    "mongoose": "^5.9.19",
-    "validator": "^13.1.1"
+    "mailparser": "^2.8.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.11.18",
+    "validator": "^13.5.2"
   },
   "devDependencies": {
-    "@types/express": "^4.17.6",
-    "@types/imap": "^0.8.30",
-    "@types/jest": "^26.0.3",
-    "@types/mongoose": "^5.7.29",
-    "jest": "^26.1.0",
+    "@types/express": "^4.17.11",
+    "@types/imap": "^0.8.33",
+    "@types/jest": "^26.0.20",
+    "@types/mongoose": "^5.10.3",
+    "jest": "^26.6.3",
     "node-fetch": "^2.6.1"
   }
 }
